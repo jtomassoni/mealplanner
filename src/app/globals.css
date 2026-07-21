@@ -1,0 +1,262 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f3f6f4;
+  --foreground: #1a2420;
+  --card: #ffffff;
+  --card-foreground: #1a2420;
+  --popover: #ffffff;
+  --popover-foreground: #1a2420;
+  --primary: #2f6b4f;
+  --primary-foreground: #f4faf6;
+  --secondary: #e4ece7;
+  --secondary-foreground: #2a3b33;
+  --muted: #e8eee9;
+  --muted-foreground: #5c6f66;
+  --accent: #dce9e1;
+  --accent-foreground: #24523c;
+  --destructive: #b42318;
+  --destructive-foreground: #fff5f5;
+  --border: #cfdad3;
+  --input: #cfdad3;
+  --ring: #2f6b4f;
+  --radius: 0.75rem;
+  --surface-warm: #eef3f0;
+  --success: #1f7a4c;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-success: var(--success);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+}
+
+body {
+  background:
+    radial-gradient(ellipse 120% 80% at 100% -20%, #d9e8df 0%, transparent 50%),
+    radial-gradient(ellipse 80% 60% at -10% 100%, #dfe8e3 0%, transparent 45%),
+    var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body), "Segoe UI", sans-serif;
+  min-height: 100dvh;
+}
+
+h1,
+h2,
+h3,
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
+  letter-spacing: -0.02em;
+}
+
+/* Safe area for mobile bottom nav */
+.pb-safe {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* —— Auth / landing —— */
+@keyframes landing-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes landing-drift {
+  from {
+    transform: scale(1.06) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.12) translate3d(-1.5%, 1%, 0);
+  }
+}
+
+@keyframes landing-brand-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+    letter-spacing: 0.04em;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    letter-spacing: -0.02em;
+  }
+}
+
+.landing {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  min-height: 100dvh;
+  overflow: hidden;
+}
+
+.landing-visual {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.landing-visual-photo {
+  position: absolute;
+  inset: -4%;
+  background-color: #1e3d30;
+  background-image:
+    linear-gradient(160deg, rgba(20, 48, 36, 0.25), rgba(20, 48, 36, 0.55)),
+    url("https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=2400&q=80");
+  background-size: cover;
+  background-position: center;
+  animation: landing-drift 28s ease-in-out alternate infinite;
+  will-change: transform;
+}
+
+.landing-visual-wash {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      105deg,
+      rgba(243, 246, 244, 0.96) 0%,
+      rgba(243, 246, 244, 0.9) 42%,
+      rgba(243, 246, 244, 0.35) 68%,
+      rgba(30, 61, 48, 0.2) 100%
+    ),
+    radial-gradient(ellipse 70% 50% at 10% 90%, rgba(47, 107, 79, 0.12), transparent 60%);
+}
+
+.landing-panel {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+  width: min(100%, 28rem);
+  padding: 2rem 1.25rem 2.5rem;
+  margin-right: auto;
+  animation: landing-fade-up 0.7s ease-out both;
+}
+
+.landing-brand {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2.75rem, 8vw, 3.75rem);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--primary);
+  animation: landing-brand-in 0.9s ease-out both;
+}
+
+.landing-headline {
+  margin-top: 1rem;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.65rem, 4.5vw, 2.15rem);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--foreground);
+  animation: landing-fade-up 0.75s ease-out 0.08s both;
+}
+
+.landing-headline-break {
+  display: inline;
+}
+
+.landing-lede {
+  margin-top: 0.85rem;
+  max-width: 26ch;
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--muted-foreground);
+  animation: landing-fade-up 0.75s ease-out 0.16s both;
+}
+
+.landing-signin {
+  animation: landing-fade-up 0.75s ease-out 0.24s both;
+}
+
+.landing-signin-title {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.landing-signin-note {
+  margin: 0.25rem 0 1rem;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+.auth-ambient {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 100% 70% at 100% 0%, #d5e6db 0%, transparent 55%),
+    radial-gradient(ellipse 80% 50% at 0% 100%, #e2ebe5 0%, transparent 50%),
+    var(--background);
+}
+
+@media (min-width: 900px) {
+  .landing-panel {
+    width: min(100%, 34rem);
+    padding: 3rem 3rem 3rem 4.5rem;
+    gap: 2.5rem;
+  }
+
+  .landing-headline-break {
+    display: block;
+  }
+
+  .landing-visual-wash {
+    background:
+      linear-gradient(
+        100deg,
+        rgba(243, 246, 244, 0.97) 0%,
+        rgba(243, 246, 244, 0.92) 38%,
+        rgba(243, 246, 244, 0.2) 62%,
+        transparent 78%
+      ),
+      radial-gradient(ellipse 50% 40% at 20% 100%, rgba(47, 107, 79, 0.1), transparent 55%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-visual-photo,
+  .landing-brand,
+  .landing-panel,
+  .landing-headline,
+  .landing-lede,
+  .landing-signin {
+    animation: none;
+  }
+}
